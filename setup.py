@@ -3,9 +3,6 @@ from setuptools import setup
 
 import image_fields
 
-VERSION = (0, 0, 1)
-__version__ = VERSION
-__versionstr__ = '.'.join(map(str, VERSION))
 
 with open(join(dirname(__file__), 'README.rst')) as f:
     long_description = f.read().strip()
