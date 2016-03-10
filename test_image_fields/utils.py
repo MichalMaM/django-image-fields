@@ -1,6 +1,7 @@
 import os
 from PIL import Image, ImageDraw
 
+from django.conf import settings
 from django.core.files.uploadedfile import InMemoryUploadedFile
 
 from test_image_fields.models import Question
@@ -21,7 +22,7 @@ def create_question(test_case, **kwargs):
     obj = create_obj(Question, defaults=defaults, commit=False, **kwargs)
     image_field = Question._meta.get_field('image')
 
-    file_path = kwargs.pop('file_path', os.path.join('data', 'small_image.jpg'))
+    file_path = kwargs.pop('file_path', get_full_file_path(os.path.join('data', 'small_image.jpg')))
 
     with open(file_path, 'rb') as f:
         upload_file = InMemoryUploadedFile(
@@ -49,3 +50,7 @@ def create_image(file_path, size=(1000, 1000), text="Hello World!", text_positio
     image = im.save(file_path, file_type)
 
     return image
+
+
+def get_full_file_path(file_path):
+    return os.path.join(settings.FILE_ROOT, file_path)

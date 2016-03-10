@@ -8,13 +8,15 @@ from django import forms
 from django.core.files.uploadedfile import InMemoryUploadedFile, TemporaryUploadedFile
 
 from image_fields.forms import ResizedImageField
+
 from .cases import ImageFieldsTestCase
+from .utils import get_full_file_path
 
 
 class TestResizedImageField(ImageFieldsTestCase):
 
     def test_image_is_resized_for_setting_size(self):
-        image_path = os.path.join('data', 'medium_image.jpg')
+        image_path = get_full_file_path(os.path.join('data', 'medium_image.jpg'))
 
         with open(image_path, 'rb') as f:
             upload_file = InMemoryUploadedFile(
@@ -34,7 +36,7 @@ class TestResizedImageField(ImageFieldsTestCase):
                 tools.assert_equals(im.size, (300, 140))
 
     def test_image_is_resized_for_setting_size_and_big_image(self):
-        image_path = os.path.join('data', 'big_image.jpg')
+        image_path = get_full_file_path(os.path.join('data', 'big_image.jpg'))
 
         with open(image_path, 'rb') as f:
             upload_file = TemporaryUploadedFile(
@@ -53,7 +55,7 @@ class TestResizedImageField(ImageFieldsTestCase):
                 tools.assert_equals(im.size, (300, 150))
 
     def test_image_is_resized_for_kwargs_spec_size(self):
-        image_path = os.path.join('data', 'medium_image.jpg')
+        image_path = get_full_file_path(os.path.join('data', 'medium_image.jpg'))
 
         with open(image_path, 'rb') as f:
             upload_file = InMemoryUploadedFile(
@@ -73,7 +75,7 @@ class TestResizedImageField(ImageFieldsTestCase):
                 tools.assert_equals(im.size, (200, 93))
 
     def test_image_is_not_resized_if_is_smaller_than_bounds(self):
-        image_path = os.path.join('data', 'small_image.jpg')
+        image_path = get_full_file_path(os.path.join('data', 'small_image.jpg'))
 
         with open(image_path, 'rb') as f:
             upload_file = InMemoryUploadedFile(
@@ -94,7 +96,7 @@ class TestResizedImageField(ImageFieldsTestCase):
 
     @tools.raises(forms.ValidationError)
     def test_image_raise_validation_error_if_file_is_not_image(self):
-        image_path = os.path.join('data', 'hi.txt')
+        image_path = get_full_file_path(os.path.join('data', 'hi.txt'))
 
         with open(image_path, 'rb') as f:
             upload_file = InMemoryUploadedFile(
@@ -109,7 +111,7 @@ class TestResizedImageField(ImageFieldsTestCase):
             image_field.clean(upload_file)
 
     def test_return_none_if_image_does_not_changed(self):
-        image_path = os.path.join('data', 'small_image.jpg')
+        image_path = get_full_file_path(os.path.join('data', 'small_image.jpg'))
 
         with open(image_path, 'rb') as f:
             image_field = ResizedImageField()

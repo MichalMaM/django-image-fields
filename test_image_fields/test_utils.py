@@ -3,14 +3,16 @@ from PIL import Image
 from nose import tools
 
 from image_fields.utils import resize_image
+
 from .cases import ImageFieldsTestCase
+from .utils import get_full_file_path
 
 
 class TestResizeImage(ImageFieldsTestCase):
 
     def setUp(self):
         super(TestResizeImage, self).setUp()
-        self.medium_image_resized_path = os.path.join('data', 'medium_image_resized.jpg')
+        self.medium_image_resized_path = get_full_file_path(os.path.join('data', 'medium_image_resized.jpg'))
 
     def tearDown(self):
         super(TestResizeImage, self).tearDown()
@@ -18,7 +20,7 @@ class TestResizeImage(ImageFieldsTestCase):
             os.remove(self.medium_image_resized_path)
 
     def test_image_is_resized_for_mem_target_size_200_200(self):
-        image_path = os.path.join('data', 'medium_image.jpg')
+        image_path = get_full_file_path(os.path.join('data', 'medium_image.jpg'))
         with Image.open(image_path) as im:
             new_mem_file = resize_image(im, size=(200, 200), content_type=im.format)
             tools.assert_equals(im.size, (200, 93))
@@ -27,7 +29,7 @@ class TestResizeImage(ImageFieldsTestCase):
             tools.assert_equals(im.size, (200, 93))
 
     def test_image_is_resized_for_disk_file_target_size_200_200(self):
-        image_path = os.path.join('data', 'medium_image.jpg')
+        image_path = get_full_file_path(os.path.join('data', 'medium_image.jpg'))
         with Image.open(image_path) as im:
             new_file_path = resize_image(im, size=(200, 200), content_type=im.format, file_path=self.medium_image_resized_path)
             tools.assert_equals(im.size, (200, 93))

@@ -1,6 +1,6 @@
-from os.path import dirname, join, normpath, pardir
+from os.path import dirname, join, normpath
 
-FILE_ROOT = normpath(join(dirname(__file__), pardir))
+FILE_ROOT = normpath(join(dirname(__file__)))
 
 
 ROOT_URLCONF = 'test_image_fields.urls'
