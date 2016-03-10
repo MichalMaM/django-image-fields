@@ -2,8 +2,8 @@ import os
 import sys
 from django.forms.fields import ImageField
 
-from .utils import resize_image, BytesIO, Image
-from . import conf
+from ..utils import resize_image, BytesIO, Image
+from .. import conf
 
 
 class ResizedImageField(ImageField):

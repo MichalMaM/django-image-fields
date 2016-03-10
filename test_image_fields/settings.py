@@ -10,7 +10,7 @@ STATIC_URL = '/static/'
 MEDIA_URL = '/media/'
 MEDIA_ROOT = join(FILE_ROOT, 'media')
 
-DEBUG=True
+DEBUG = True
 
 TEMPLATE_LOADERS = (
     'django.template.loaders.filesystem.Loader',
@@ -62,3 +62,5 @@ INSTALLED_APPS = (
 )
 
 SITE_ID = 1
+
+IMAGE_FIELDS_DEFAULT_IMAGE_SIZE = (300, 300)
