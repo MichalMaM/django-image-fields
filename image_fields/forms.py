@@ -13,16 +13,18 @@ class ResizedImageField(ImageField):
         self.image_quality = kwargs.pop('image_quality', conf.DEFAULT_IMAGE_QUALITY)
         super(ResizedImageField, self).__init__(*args, **kwargs)
 
-
     def to_python(self, data):
         f = super(ResizedImageField, self).to_python(data)
-        
+
         if f is None:
             return None
 
         data_width, data_height = data.image.size
 
         if data_width > self.required_size[0] or data_height > self.required_size[1]:
+
+            # close original image
+            f.image.close()
 
             if hasattr(data, 'temporary_file_path'):
                 file = data.temporary_file_path()
@@ -44,8 +46,6 @@ class ResizedImageField(ImageField):
                 file_path=file_path
             )
 
-            # close original image
-            f.image.close()
             # add resized image
             f.image = image
 

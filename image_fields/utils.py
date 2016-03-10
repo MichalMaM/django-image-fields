@@ -11,7 +11,7 @@ except ImportError:
 
 def resize_image(image, size, content_type, quality=98, file_path=None):
     image.thumbnail(size, Image.ANTIALIAS)
- 
+
     if not file_path:
         save_to = BytesIO()
     else:
