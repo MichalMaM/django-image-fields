@@ -8,6 +8,7 @@ with open(join(dirname(__file__), 'README.rst')) as f:
     long_description = f.read().strip()
 
 install_requires = [
+    'Pillow',
     'Django>=1.8',
 ]
 test_requires = [
