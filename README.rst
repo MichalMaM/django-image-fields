@@ -13,6 +13,15 @@ Requirements
 - python >= 2.7
 - Django >= 1.8
 
+Build status
+============
+
+:Master branch:
+
+  .. image:: https://secure.travis-ci.org/MichalMaM/django-image-fields.svg?branch=master
+     :alt: Travis CI - Distributed build platform for the open source community
+     :target: http://travis-ci.org/#!/MichalMaM/django-image-fields
+
 License
 =======
 
