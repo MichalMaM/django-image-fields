@@ -3,14 +3,14 @@ import sys
 from django.forms.fields import ImageField
 
 from ..utils import resize_image, BytesIO, Image
-from .. import conf
+from ..conf import settings
 
 
 class ResizedImageField(ImageField):
 
     def __init__(self, *args, **kwargs):
-        self.required_size = kwargs.pop('required_size', conf.DEFAULT_IMAGE_SIZE)
-        self.image_quality = kwargs.pop('image_quality', conf.DEFAULT_IMAGE_QUALITY)
+        self.required_size = kwargs.pop('required_size', settings.DEFAULT_IMAGE_SIZE)
+        self.image_quality = kwargs.pop('image_quality', settings.DEFAULT_IMAGE_QUALITY)
         super(ResizedImageField, self).__init__(*args, **kwargs)
 
     def to_python(self, data):
